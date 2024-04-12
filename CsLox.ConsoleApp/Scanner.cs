@@ -7,10 +7,34 @@ namespace CsLox.ConsoleApp
         private string source;
 
         private List<Token> tokens = new List<Token>();
+        private static Dictionary<string, TokenType> keywords;
 
         private int start = 0;
         private int current = 0;
         private int line = 1;
+
+        static Scanner() {
+            keywords = new Dictionary<string, TokenType>
+            {
+                { "and", TokenType.AND },
+                { "class", TokenType.CLASS },
+                { "else", TokenType.ELSE },
+                { "false", TokenType.FALSE },
+                { "for", TokenType.FOR },
+                { "fun", TokenType.FUN },
+                { "if", TokenType.IF },
+                { "nil", TokenType.NIL },
+                { "or", TokenType.OR },
+                { "print", TokenType.PRINT },
+                { "return", TokenType.RETURN },
+                { "super", TokenType.SUPER },
+                { "this", TokenType.THIS },
+                { "true", TokenType.TRUE },
+                { "var", TokenType.VAR },
+                { "while", TokenType.WHILE }
+            };
+
+        }
 
         public Scanner(string source)
         {
@@ -89,8 +113,17 @@ namespace CsLox.ConsoleApp
 
                 case '"': AddStringToken(); break;
 
+                case 'o':
+                    if (Match('r'))
+                        AddToken(TokenType.OR);
+
+                    break;
+
                 default:
                     if (IsDigit(c)) AddNumberToken();
+
+                    else if (IsAlpha(c)) AddIdentifierToken();
+
                     else
                         CsLox.Error(line, $"Unexpected character '{c}'.");
 
@@ -110,7 +143,7 @@ namespace CsLox.ConsoleApp
 
         private void AddToken(TokenType type, object literal)
         {
-            string text = source.Substring(start, current);
+            string text = source.Substring(start, current - start);
 
             tokens.Add(new Token(type, text, literal, line));
         }
@@ -132,7 +165,7 @@ namespace CsLox.ConsoleApp
             Advance();
 
             // Extract string value between quotes... eg: "{value}"
-            string value = source.Substring(start + 1, current - 1);
+            string value = source.Substring(start + 1, current - start - 1);
 
             AddToken(TokenType.STRING, value);
         }
@@ -150,7 +183,20 @@ namespace CsLox.ConsoleApp
                 while (IsDigit(Peek())) Advance();
             }
 
-            AddToken(TokenType.NUMBER, double.Parse(source.Substring(start, current)));
+            AddToken(TokenType.NUMBER, double.Parse(source.Substring(start, current - start)));
+        }
+
+        private void AddIdentifierToken()
+        {
+            while (IsAlphaNumeric(Peek())) Advance();
+
+            string text = source.Substring(start, current - start);
+
+            TokenType type = keywords.GetValueOrDefault(text);
+
+            if (type == default) type = TokenType.IDENTIFIER;
+
+            AddToken(type);
         }
 
         private bool Match(char expected)
@@ -180,6 +226,19 @@ namespace CsLox.ConsoleApp
         private bool IsDigit(char c)
         {
             return c >= '0' && c <= '9';
+        }
+
+        private bool IsAlpha(char c)
+        {
+            return
+                (c >= 'a' && c <= 'z') ||
+                (c >= 'A' && c <= 'Z') ||
+                c == '_';
+        }
+
+        private bool IsAlphaNumeric(char c)
+        {
+            return IsAlpha(c) || IsDigit(c);
         }
     }
 }
