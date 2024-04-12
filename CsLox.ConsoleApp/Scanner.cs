@@ -26,7 +26,7 @@ namespace CsLox.ConsoleApp
                 ScanToken();
             }
 
-            tokens.Add(new Token(Domain.Enums.TokenType.EOF, "", null, line));
+            tokens.Add(new Token(TokenType.EOF, "", null, line));
 
             return tokens;
         }
@@ -53,6 +53,22 @@ namespace CsLox.ConsoleApp
                 case ';': AddToken(TokenType.SEMICOLON); break;
                 case '*': AddToken(TokenType.STAR); break;
 
+                case '!':
+                    AddToken(Match('=') ? TokenType.BANG_EQUAL : TokenType.BANG);
+                    break;
+
+                case '=':
+                    AddToken(Match('=') ? TokenType.EQUAL_EQUAL : TokenType.EQUAL);
+                    break;
+
+                case '<':
+                    AddToken(Match('=') ? TokenType.LESS_EQUAL : TokenType.LESS);
+                    break;
+
+                case '>':
+                    AddToken(Match('=') ? TokenType.GREATER_EQUAL: TokenType.GREATER);
+                    break;
+
                 default:
                     CsLox.Error(line, $"Unexpected character '{c}'.");
                     break;
@@ -76,6 +92,14 @@ namespace CsLox.ConsoleApp
             tokens.Add(new Token(type, text, literal, line));
         }
 
+        private bool Match(char expected)
+        {
+            if (IsAtEnd()) return false;
+            if (source.ElementAt(current) != expected) return false;
+
+            current++;
+            return true;
+        }
     }
 
 }
