@@ -4,7 +4,10 @@ namespace CsLox.ConsoleApp
 {
     public class CsLox
     {
-        static bool hadError = false;
+        const int CommandLineUsageErrorCode = 64;
+        const int ScriptExecutionErrorCode = 65;
+
+        static bool hadSourceParsingError = false;
 
         /// <summary>
         /// The entry point for the CsLox interpreter. It processes command line arguments to determine
@@ -22,7 +25,7 @@ namespace CsLox.ConsoleApp
             {
                 Console.WriteLine("Usage: cslox [script]");
 
-                Environment.Exit(64); // Exit code for command line usage error (common UNIX practice)
+                Environment.Exit(CommandLineUsageErrorCode); // Exit code for command line usage error (common UNIX practice)
             }
             else if (args.Length == 1)
                 RunFile(args[0]); // Executes the Lox script file specified by the user.
@@ -40,7 +43,7 @@ namespace CsLox.ConsoleApp
 
             Run(Encoding.Default.GetString(bytes));
 
-            if (hadError) Environment.Exit(65);
+            if (hadSourceParsingError) Environment.Exit(ScriptExecutionErrorCode);
         }
 
         /// <summary>
@@ -59,7 +62,7 @@ namespace CsLox.ConsoleApp
 
                 Run(line);
 
-                hadError = false;
+                hadSourceParsingError = false;
             }
         }
 
