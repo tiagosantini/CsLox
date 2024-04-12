@@ -69,8 +69,32 @@ namespace CsLox.ConsoleApp
                     AddToken(Match('=') ? TokenType.GREATER_EQUAL: TokenType.GREATER);
                     break;
 
+                case '/':
+                    if (Match('/'))
+                    {
+                        while (Peek() != '\n' && !IsAtEnd())
+                            Advance();
+                    }
+                    else
+                        AddToken(TokenType.SLASH);
+                    break;
+
+                case ' ': 
+                case '\r':
+                case '\t':
+                    break;
+
+                case '\n':
+                    line++;
+                    break;
+
+                case '"': AddStringToken(); break;
+
                 default:
-                    CsLox.Error(line, $"Unexpected character '{c}'.");
+                    if (IsDigit(c)) AddNumberToken();
+                    else
+                        CsLox.Error(line, $"Unexpected character '{c}'.");
+
                     break;
             }
         }
@@ -99,6 +123,64 @@ namespace CsLox.ConsoleApp
 
             current++;
             return true;
+        }
+
+        private char Peek()
+        {
+            // Return null in case line is at an end
+            if (IsAtEnd()) return '\0';
+
+            return source.ElementAt(current);
+        }
+
+        private void AddStringToken()
+        {
+            while (Peek() != '"' && !IsAtEnd())
+            {
+                if (Peek() == '\n') line++;
+                Advance();
+            }
+
+            if (IsAtEnd())
+            {
+                CsLox.Error(line, "Unterminated string.");
+                return;
+            }
+
+            Advance();
+
+            // Extract string value between quotes... eg: "{value}"
+            string value = source.Substring(start + 1, current - 1);
+
+            AddToken(TokenType.STRING, value);
+        }
+
+        private void AddNumberToken()
+        {
+            // Parse number tokens
+            while (IsDigit(Peek())) Advance();
+
+            // Look for decimal point and keep parsing if true
+            if (Peek() == '.' && IsDigit(PeekNext()))
+            {
+                Advance();
+
+                while (IsDigit(Peek())) Advance();
+            }
+
+            AddToken(TokenType.NUMBER, double.Parse(source.Substring(start, current)));
+        }
+
+        private bool IsDigit(char c)
+        {
+            return c >= '0' && c <= '9';
+        }
+
+        private char PeekNext()
+        {
+            if (current + 1 >= source.Length) return '\0';
+
+            return source.ElementAt(current + 1);
         }
     }
 
