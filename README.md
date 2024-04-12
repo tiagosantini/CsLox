@@ -51,10 +51,10 @@ Lox is a dynamically-typed programming language designed for ease of use and cla
 
 ### Data Types
 
-**Boolean**: true or false
-**Number**: All numbers are floating point. Example: 123, 45.67
-**String**: Text enclosed in double quotes. Example: "Hello, world!"
-**Nil**: Represents the absence of a value or null.
+- **Boolean**: true or false
+- **Number**: All numbers are floating point. Example: 123, 45.67
+- **String**: Text enclosed in double quotes. Example: "Hello, world!"
+- **Nil**: Represents the absence of a value or null.
 
 ### Variables
 Declare variables using the ```var``` keyword. Variables must be initialized upon declaration.
@@ -122,9 +122,9 @@ class Dog < Animal {
 
 ### Operators
 
-**Arithmetic**: +, -, *, /
-**Comparison**: ==, !=, <, >, <=, >=
-**Logical**: and, or, !
+- **Arithmetic**: +, -, *, /
+- **Comparison**: ==, !=, <, >, <=, >=
+- **Logical**: and, or, !
 
 ### Comments
 Use // for single-line comments.
@@ -144,10 +144,10 @@ Use // for single-line comments.
 
 The scanner supports various tokens including:
 
-**Keywords**: and, class, else, false, for, fun, if, nil, or, print, return, super, this, true, var, while
-**Symbols**: (, ), {, }, ,, ., -, +, ;, *, /, !, =, <, >
-**Literals**: Identifiers, strings, numbers
-**Miscellaneous**: Comments, whitespace (spaces, tabs, and new lines are ignored except to separate tokens)
+- **Keywords**: and, class, else, false, for, fun, if, nil, or, print, return, super, this, true, var, while
+- **Symbols**: (, ), {, }, ,, ., -, +, ;, *, /, !, =, <, >
+- **Literals**: Identifiers, strings, numbers
+- **Miscellaneous**: Comments, whitespace (spaces, tabs, and new lines are ignored except to separate tokens)
 
 ## Acknowledgments
 
