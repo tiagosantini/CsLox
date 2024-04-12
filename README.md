@@ -44,6 +44,111 @@ Alternatively, to start an interactive REPL:
 dotnet run --project CsLox
 ```
 
+## Lox Language Manual
+
+### Introduction
+Lox is a dynamically-typed programming language designed for ease of use and clarity. It supports object-oriented principles and offers a robust standard library.
+
+### Data Types
+
+**Boolean**: true or false
+**Number**: All numbers are floating point. Example: 123, 45.67
+**String**: Text enclosed in double quotes. Example: "Hello, world!"
+**Nil**: Represents the absence of a value or null.
+
+### Variables
+Declare variables using the ```var``` keyword. Variables must be initialized upon declaration.
+
+```bash
+var name = "Lox";
+var version = 1.0;
+```
+
+### Control Structures
+
+- Conditional Statements:
+    ```bash
+    if (condition) {
+        // statements
+    } else {
+        // statements
+    }
+    ```
+
+- While Loop:
+    ```bash
+    if (condition) {
+        // statements
+    } else {
+        // statements
+    }
+    ```
+
+- For Loop:
+    ```bash
+    for (var i = 0; i < 10; i = i + 1) {
+        print i;
+    }
+    ```
+
+### Functions
+
+Define functions using the ```fun``` keyword. Functions may return values using ```return```.
+
+```bash
+fun greet(name) {
+  print "Hello " + name + "!";
+}
+```
+
+### Classes
+
+Lox supports simple classes with inheritance.
+
+```bash
+class Animal {
+  fun speak() {
+    print "Some noise";
+  }
+}
+
+class Dog < Animal {
+  fun speak() {
+    print "Bark";
+  }
+}
+
+```
+
+### Operators
+
+**Arithmetic**: +, -, *, /
+**Comparison**: ==, !=, <, >, <=, >=
+**Logical**: and, or, !
+
+### Comments
+Use // for single-line comments.
+```bash
+// This is a comment
+```
+
+### Standard Functions
+
+- print: Outputs a string to the console.
+
+    ```bash
+    print "Hello, world!";
+    ```
+
+### Tokens Recognized by the Scanner
+
+The scanner supports various tokens including:
+
+**Keywords**: and, class, else, false, for, fun, if, nil, or, print, return, super, this, true, var, while
+**Symbols**: (, ), {, }, ,, ., -, +, ;, *, /, !, =, <, >
+**Literals**: Identifiers, strings, numbers
+**Miscellaneous**: Comments, whitespace (spaces, tabs, and new lines are ignored except to separate tokens)
+
 ## Acknowledgments
 
 - Robert Nystrom, for his excellent book "Crafting Interpreters," which inspired this project.
