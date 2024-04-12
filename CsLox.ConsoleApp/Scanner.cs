@@ -115,23 +115,6 @@ namespace CsLox.ConsoleApp
             tokens.Add(new Token(type, text, literal, line));
         }
 
-        private bool Match(char expected)
-        {
-            if (IsAtEnd()) return false;
-            if (source.ElementAt(current) != expected) return false;
-
-            current++;
-            return true;
-        }
-
-        private char Peek()
-        {
-            // Return null in case line is at an end
-            if (IsAtEnd()) return '\0';
-
-            return source.ElementAt(current);
-        }
-
         private void AddStringToken()
         {
             while (Peek() != '"' && !IsAtEnd())
@@ -170,9 +153,21 @@ namespace CsLox.ConsoleApp
             AddToken(TokenType.NUMBER, double.Parse(source.Substring(start, current)));
         }
 
-        private bool IsDigit(char c)
+        private bool Match(char expected)
         {
-            return c >= '0' && c <= '9';
+            if (IsAtEnd()) return false;
+            if (source.ElementAt(current) != expected) return false;
+
+            current++;
+            return true;
+        }
+
+        private char Peek()
+        {
+            // Return null in case line is at an end
+            if (IsAtEnd()) return '\0';
+
+            return source.ElementAt(current);
         }
 
         private char PeekNext()
@@ -181,6 +176,10 @@ namespace CsLox.ConsoleApp
 
             return source.ElementAt(current + 1);
         }
-    }
 
+        private bool IsDigit(char c)
+        {
+            return c >= '0' && c <= '9';
+        }
+    }
 }
