@@ -1,7 +1,7 @@
-﻿using CsLox.ConsoleApp.Domain.Enums;
+﻿using CsLox.ConsoleApp.Enums;
 using System;
 
-namespace CsLox.ConsoleApp.Domain
+namespace CsLox.ConsoleApp
 {
     public class Token
     {

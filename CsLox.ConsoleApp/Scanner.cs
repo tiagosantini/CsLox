@@ -1,5 +1,4 @@
-﻿using CsLox.ConsoleApp.Domain;
-using CsLox.ConsoleApp.Domain.Enums;
+﻿using CsLox.ConsoleApp.Enums;
 
 namespace CsLox.ConsoleApp
 {
@@ -66,7 +65,7 @@ namespace CsLox.ConsoleApp
                     break;
 
                 case '>':
-                    AddToken(Match('=') ? TokenType.GREATER_EQUAL: TokenType.GREATER);
+                    AddToken(Match('=') ? TokenType.GREATER_EQUAL : TokenType.GREATER);
                     break;
 
                 case '/':
@@ -79,7 +78,7 @@ namespace CsLox.ConsoleApp
                         AddToken(TokenType.SLASH);
                     break;
 
-                case ' ': 
+                case ' ':
                 case '\r':
                 case '\t':
                     break;
