@@ -47,7 +47,14 @@ namespace CsLox.ConsoleApp
 
         private static void Run(string source)
         {
+            Scanner scanner = new Scanner(source);
 
+            List<Token> tokens = scanner.ScanTokens();
+            
+            // Print Tokens
+            // TODO: Implement execution
+            foreach (Token token in tokens)
+                Console.WriteLine(token);
         }
 
         public static void Error(int line, string message)
