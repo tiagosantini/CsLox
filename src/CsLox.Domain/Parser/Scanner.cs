@@ -1,6 +1,6 @@
-﻿using CsLox.ConsoleApp.Enums;
+﻿using CsLox.Domain.Enums;
 
-namespace CsLox.ConsoleApp.Parser
+namespace CsLox.Domain.Parser
 {
     public class Scanner
     {
@@ -126,7 +126,7 @@ namespace CsLox.ConsoleApp.Parser
                     else if (IsAlpha(c)) AddIdentifierToken();
 
                     else
-                        CsLox.Error(line, $"Unexpected character '{c}'.");
+                        ErrorReporter.Error(line, $"Unexpected character '{c}'.");
 
                     break;
             }
@@ -159,7 +159,7 @@ namespace CsLox.ConsoleApp.Parser
 
             if (IsAtEnd())
             {
-                CsLox.Error(line, "Unterminated string.");
+                ErrorReporter.Error(line, "Unterminated string.");
                 return;
             }
 
