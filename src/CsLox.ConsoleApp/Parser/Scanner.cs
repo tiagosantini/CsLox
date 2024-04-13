@@ -1,6 +1,6 @@
 ﻿using CsLox.ConsoleApp.Enums;
 
-namespace CsLox.ConsoleApp
+namespace CsLox.ConsoleApp.Parser
 {
     public class Scanner
     {
@@ -13,7 +13,8 @@ namespace CsLox.ConsoleApp
         private int current = 0;
         private int line = 1;
 
-        static Scanner() {
+        static Scanner()
+        {
             keywords = new Dictionary<string, TokenType>
             {
                 { "and", TokenType.AND },
@@ -231,8 +232,8 @@ namespace CsLox.ConsoleApp
         private bool IsAlpha(char c)
         {
             return
-                (c >= 'a' && c <= 'z') ||
-                (c >= 'A' && c <= 'Z') ||
+                c >= 'a' && c <= 'z' ||
+                c >= 'A' && c <= 'Z' ||
                 c == '_';
         }
 

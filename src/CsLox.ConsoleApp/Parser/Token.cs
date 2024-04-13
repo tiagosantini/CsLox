@@ -1,7 +1,7 @@
 ﻿using CsLox.ConsoleApp.Enums;
 using System;
 
-namespace CsLox.ConsoleApp
+namespace CsLox.ConsoleApp.Parser
 {
     public class Token
     {
